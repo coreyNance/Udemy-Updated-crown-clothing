@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 20px 40px;
+  font-family: 'Open Sans Condensed', sans-serif;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+
+a {
+  text-decoration: none; // this is used to remove the underline from the links in the application. It is used to style the links in the application.
+  color: black;
+}
+
+
+* {
+  box-sizing: border-box; // this is used to include the padding and border in the total width and height of the elements in the application. It is used to make sure that the elements in the application are sized correctly.
+}
