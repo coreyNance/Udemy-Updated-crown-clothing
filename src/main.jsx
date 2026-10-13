@@ -5,7 +5,7 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'; // This is the component that allows us to use routing in our application. 
                                                   // It should wrap around the entire application to provide routing capabilities to all components.
 import {UserProvider} from './contexts/user.context.jsx';
-import {ProductsProvider} from './contexts/products.context.jsx';
+import { CategoriesProvider } from './contexts/categories.context.jsx'; // This is the context provider for the categories state. It should wrap around the entire application to provide categories state to all components.
 import { CartProvider } from './contexts/cart.context.jsx'; // This is the context provider for the cart state. It should wrap around the entire application to provide cart state to all components.
 
 
@@ -15,11 +15,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter> 
       <UserProvider>
-        <ProductsProvider>
+        <CategoriesProvider>
           <CartProvider>
             <App />
           </CartProvider>
-        </ProductsProvider>
+        </CategoriesProvider>
       </UserProvider>
     </BrowserRouter>
   </StrictMode>,

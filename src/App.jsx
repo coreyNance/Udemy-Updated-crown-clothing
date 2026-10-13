@@ -13,7 +13,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Navigation />}> {/* this is the route for the navigation component that will be rendered on all pages of the application */}
         <Route index element={<Home />} /> {/* index is what allows the Home component to be rendered when the user is on the root path '/' */}
-        <Route path='shop' element={<Shop />} />  {/* this is the route for the shop component */}
+        <Route path='shop/*' element={<Shop />} />  {/* this is the route for the shop component */}
         <Route path='auth' element={<Authentication />} />  {/* this is the route for the authentication component */}
         <Route path='checkout' element={<Checkout />} />  {/* this is the route for the checkout component */}
     </Route>

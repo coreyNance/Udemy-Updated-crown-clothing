@@ -11,10 +11,16 @@ import {
 } from "firebase/auth";
 
 // Import the functions you need from the SDKs you need
-import { getFirestore,
-     doc, 
-     getDoc, 
-     setDoc } from "firebase/firestore";
+import { 
+    getFirestore,
+    doc, 
+    getDoc, 
+    setDoc,
+    collection,  // this is the function that will be used to create a new document in the "users" collection with the user's UID as the document ID and the user's display name, email, and created at date as the document data.
+    writeBatch,  // this is the function that will be used to create a new document in the "users" collection with the user's UID as the document ID and the user's display name, email, and created at date as the document data.
+    query,  // this is the function that will be used to create a new document in the "users" collection with the user's UID as the document ID and the user's display name, email, and created at date as the document data.
+    getDocs  // this is the function that will be used to create a new document in the "users" collection with the user's UID as the document ID and the user's display name, email, and created at date as the document data.
+} from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -47,6 +53,43 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 // this is the function that will be used to sign in with Google using a redirect
 export const db = getFirestore();
 
+
+// this is the function that will be used to add a collection and documents to Firestore. It takes in a collection key and an array of objects 
+// to add to the collection. It creates a new document for each object in the array, using the object's title as the document ID, and sets 
+// the document data to the object. It then commits the batch write to Firestore.
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collectionRef = collection(db, collectionKey);
+    const batch = writeBatch(db);
+
+    objectsToAdd.forEach((object) => {
+        const docRef = doc(collectionRef, object.title.toLowerCase());
+        batch.set(docRef, object);
+    });
+
+    await batch.commit();
+    console.log("done");
+};
+
+
+// this is the function that will be used to get the categories and documents from Firestore. It queries the "categories" 
+// collection and returns an object where the keys are the category titles and the values are the category items.
+export const getCategoriesAndDocuments = async () => {
+    const collectionRef = collection(db, 'categories');
+    const q = query(collectionRef);
+
+    const querySnapshot = await getDocs(q);
+    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+        const {title, items} = docSnapshot.data();
+        acc[title.toLowerCase()] = items;
+        return acc;
+    }, {});
+
+    return categoryMap;
+
+}
+
+// this is the function that will be used to create a new user document in Firestore. It takes in a userAuth object and an optional additionalInformation object. 
+// It checks if the user document already exists, and if not, it creates a new document with the user's display name, email, and created at date, along with any additional information provided.
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
 
     if (!userAuth) return;

@@ -7,7 +7,7 @@ import {
 
 import FormInput from "../form-input/form-input.component";
 
-import Button from "../button/button.component";
+import Button, {BUTTON_TYPE_CLASSES} from "../button/button.component";
 
 // import { UserContext } from "../../contexts/user.context";
 
@@ -135,7 +135,13 @@ password. but the old code is below.  */
 
                 <div className="buttons-container">
                     <Button type="submit">Sign In</Button> {/* sign in button is set to submit which will trigger the onSubmit handler */}
-                    <Button type="button" buttonType='google' onClick={signInWithGoogle}> Google Sign In</Button>
+                    <Button 
+                        type="button" 
+                        buttonType={BUTTON_TYPE_CLASSES.google} 
+                        onClick={signInWithGoogle}
+                    >
+                        Google Sign In
+                    </Button>
                 </div>
 
             </form>

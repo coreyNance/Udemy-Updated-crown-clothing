@@ -1,4 +1,4 @@
-import './form-input.styles.scss';
+import {FormInputLabel, Input, Group} from './form-input.styles.jsx';
               
               
               // Instead of using changeHandler and value props, and because we know what they are already,
@@ -6,14 +6,16 @@ import './form-input.styles.scss';
                 // field without having to explicitly define them in the component. This makes the component more flexible and reusable.
 const FormInput = ({label, ...otherProps}) => {   
     return (
-        <div className="group">
-            <input className="form-input" {...otherProps} />
+        <Group>
+            <Input {...otherProps} />
             {label && (
-                <label className= {`${otherProps.value.length ? 'shrink' : ''} form-input-label`}>{label}</label>
+                <FormInputLabel shrink={otherProps.value.length}>
+                    {label}
+                </FormInputLabel>
             )}
             {/* <input className="form-input" {...otherProps} /> This input string was here but due to the css selector  &:focus ~ .form-input-label 
             The input was not a sibling so it was moved to just under class group div. This allows the css to target it properly */} 
-        </div>
+        </Group>
 
     )
 }
